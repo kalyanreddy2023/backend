@@ -8,13 +8,14 @@ WORKDIR /app
 COPY . /app
  
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirement.txt
  
 # Make port 7600 available to the world outside this container
 EXPOSE 8080
  
 # Define environment variable
-ENV FLASK_APP flask_app.py
+#ENV FLASK_APP flask_app.py
+ENV APP app.py
  
 # Run flask
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
