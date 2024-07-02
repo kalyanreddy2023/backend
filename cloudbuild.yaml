@@ -1,7 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/ingka-ipexcloud-kp-prod/PAT-Backend', '.']
+  args: ['build', '-t', 'gcr.io/ingka-ipexcloud-kp-prod/backend', '.']
 images:
-- 'gcr.io/ingka-ipexcloud-kp-prod/PAT-Backend'
+- 'gcr.io/ingka-ipexcloud-kp-prod/backend'
 options:
   logging: CLOUD_LOGGING_ONLY
