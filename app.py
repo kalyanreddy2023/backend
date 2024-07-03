@@ -18,7 +18,8 @@ def get_piafacts():
         return jsonify(result), 200
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(e)  # Log the exception for debugging purposes
+        return jsonify({'error': 'Internal Server Error'}), 500
 
 @app.route('/operera/', methods=['GET'])
 def get_operara():
