@@ -45,6 +45,7 @@ def get_data(item_code, country_codes):
         edge_options = Options()
        # edge_options.add_argument("--headless")
         driver = webdriver.Edge(options=edge_options)
+        print("webdriver exceuted")
 
         # Open a webpage
         driver.get(url)
