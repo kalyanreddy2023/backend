@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.edge.options import Options
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 
 import pandas as pd
 
@@ -168,7 +169,11 @@ def get_data(item_code, country_codes):
         print(f"An error occurred: {str(e)}")
 
     finally:
-        driver.quit()
+        try:
+            if driver:
+                driver.quit()
+        except WebDriverException as e:
+            print(f"Error while quitting WebDriver: {e}")
 
 
 def find_checkbox(driver, number):
