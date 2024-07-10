@@ -11,6 +11,7 @@ from selenium.webdriver.edge.options import Options
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 
 import pandas as pd
+import logging 
 
 url = 'https://admin.range-management.ingka.com/'
 
@@ -42,7 +43,7 @@ def get_data(item_code, country_codes):
     image_src_list = []
 
     try:
-        print('webdriver0 exceuted')
+        logging.info('webdriver0 exceuted')
         edge_options = Options()
        # edge_options.add_argument("--headless")
         driver = webdriver.Edge(options=edge_options)
