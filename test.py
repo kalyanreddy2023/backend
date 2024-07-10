@@ -42,6 +42,7 @@ def get_data(item_code, country_codes):
     image_src_list = []
 
     try:
+        print('webdriver0 exceuted')
         edge_options = Options()
        # edge_options.add_argument("--headless")
         driver = webdriver.Edge(options=edge_options)
@@ -175,6 +176,8 @@ def get_data(item_code, country_codes):
         try:
             if driver:
                 driver.quit()
+            else:
+                print("Driver was not initialized properly.")
         except WebDriverException as e:
             print(f"Error while quitting WebDriver: {e}")
 
