@@ -172,15 +172,6 @@ def get_data(item_code, country_codes):
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-    finally:
-        try:
-            if driver:
-                driver.quit()
-            else:
-                print("Driver was not initialized properly.")
-        except WebDriverException as e:
-            print(f"Error while quitting WebDriver: {e}")
-
 
 def find_checkbox(driver, number):
     try:
