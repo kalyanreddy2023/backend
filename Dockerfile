@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Install any needed packages specified in requirement.txt
 RUN set -ex \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
