@@ -33,7 +33,7 @@ RUN CHROMEDRIVER_VERSION=$(wget -q -O - https://chromedriver.storage.googleapis.
     && rm /tmp/chromedriver.zip
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirement.txt
 
 # Expose the port that your app runs on
 EXPOSE 8080
