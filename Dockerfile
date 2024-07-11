@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Install necessary packages for Chrome and ChromeDriver
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
