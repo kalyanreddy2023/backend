@@ -181,6 +181,10 @@ def find_checkbox(driver, number):
     except Exception as e:
         find_checkbox(driver, number)
 
+    finally:
+        if driver is not None: 
+            driver.quit()
+
 
 def find_search(driver, number):
     try:
