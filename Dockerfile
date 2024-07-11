@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
  
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirement.txt
  
 # Install necessary dependencies for Selenium and Chrome
 RUN apt-get update && apt-get install -y \
