@@ -41,7 +41,7 @@ def get_data(item_code, country_codes):
     global_start_date_list = []
     global_end_date_list = []
     image_src_list = []
-
+    print('code  debug49')
     try:
         logging.info('webdriver0 exceuted')
         edge_options = Options()
