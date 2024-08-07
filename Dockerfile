@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install necessary packages for Chrome, ChromeDriver, and dependencies
+# Install necessary packages for Edge, EdgeDriver, and dependencies
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -18,19 +18,23 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     libappindicator3-1 \
     xdg-utils \
-    gnupg
+    gnupg \
+    # Install Edge browser dependencies
+    libxkbcommon0 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0
 
-# Install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+# Install Microsoft Edge browser
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - \
+    && wget -q https://packages.microsoft.com/config/debian/10/prod.list -O /etc/apt/sources.list.d/microsoft-prod.list \
     && apt-get update \
-    && apt-get install -y google-chrome-stable
+    && apt-get install -y microsoft-edge-stable
 
-# Install ChromeDriver
-RUN CHROMEDRIVER_VERSION=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
-    && wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip \
-    && unzip /tmp/chromedriver.zip -d /usr/local/bin/ \
-    && rm /tmp/chromedriver.zip
+# Install EdgeDriver
+RUN EDGE_DRIVER_VERSION=$(wget -q -O - https://msedgedriver.azureedge.net/LATEST_RELEASE) \
+    && wget -O /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip \
+    && unzip /tmp/edgedriver.zip -d /usr/local/bin/ \
+    && rm /tmp/edgedriver.zip
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirement.txt
