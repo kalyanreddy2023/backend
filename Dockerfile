@@ -24,9 +24,9 @@ RUN apt-get update && apt-get install -y \
     libatk-bridge2.0-0 \
     libgtk-3-0
 
-# Install Microsoft Edge browser
+# Add the Microsoft Edge repository and install Edge
 RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - \
-    && wget -q https://packages.microsoft.com/config/debian/10/prod.list -O /etc/apt/sources.list.d/microsoft-prod.list \
+    && echo "deb [arch=amd64] https://packages.microsoft.com/debian/ stable main" | tee /etc/apt/sources.list.d/microsoft-prod.list \
     && apt-get update \
     && apt-get install -y microsoft-edge-stable
 
