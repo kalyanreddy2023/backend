@@ -38,14 +38,14 @@ RUN EDGE_DRIVER_VERSION=$(wget -q -O - https://msedgedriver.azureedge.net/LATEST
     && rm /tmp/edgedriver.zip
 
 # Install Python dependencies
-COPY requirement.txt /app/  # Ensure that the requirements file is copied correctly
+COPY requirement.txt /app/  # Ensure the requirements file is copied correctly
 RUN pip install --no-cache-dir -r requirement.txt
 
 # Expose the port that your app runs on
 EXPOSE 8080
 
 # Set environment variables
-ENV FLASK_APP=app.py  # Use '=' for environment variable assignment
+ENV FLASK_APP=app.py  # Correct format for environment variable assignment
 
 # Run the Flask application
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
