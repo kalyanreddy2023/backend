@@ -32,10 +32,9 @@ RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
 && apt-get install -y microsoft-edge-stable \
 && rm -rf /var/lib/apt/lists/*  # Clean up APT cache to reduce image size
 
-# Install EdgeDriver
-RUN EDGE_DRIVER_VERSION=$(curl -s https://msedgedriver.azureedge.net/LATEST_RELEASE) \
+# Install EdgeDriver with a known version
+RUN EDGE_DRIVER_VERSION=114.0.1823.43 \  # Example version
 && echo "EdgeDriver version: $EDGE_DRIVER_VERSION" \
-&& if [ -z "$EDGE_DRIVER_VERSION" ]; then echo "Failed to fetch EdgeDriver version"; exit 1; fi \
 && curl -s -o /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip \
 && if [ ! -f /tmp/edgedriver.zip ]; then echo "EdgeDriver ZIP file not downloaded"; exit 1; fi \
 && ls -l /tmp/edgedriver.zip \
