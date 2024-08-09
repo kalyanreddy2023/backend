@@ -35,11 +35,12 @@ RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
 # Install EdgeDriver
 RUN EDGE_DRIVER_VERSION=$(curl -s https://msedgedriver.azureedge.net/LATEST_RELEASE) \
 && echo "EdgeDriver version: $EDGE_DRIVER_VERSION" \
-&& curl -o /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip \
+&& if [ -z "$EDGE_DRIVER_VERSION" ]; then echo "Failed to fetch EdgeDriver version"; exit 1; fi \
+&& curl -s -o /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip \
+&& if [ ! -f /tmp/edgedriver.zip ]; then echo "EdgeDriver ZIP file not downloaded"; exit 1; fi \
 && ls -l /tmp/edgedriver.zip \
 && unzip /tmp/edgedriver.zip -d /usr/local/bin/ \
 && rm /tmp/edgedriver.zip
-
 
 # Install Python dependencies
 COPY requirement.txt /app/
