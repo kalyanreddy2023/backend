@@ -33,12 +33,14 @@ RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
 && rm -rf /var/lib/apt/lists/*  # Clean up APT cache to reduce image size
 
 # Install EdgeDriver
-RUN EDGE_DRIVER_VERSION=$(wget -q -O - https://msedgedriver.azureedge.net/LATEST_RELEASE) \
-&& echo "EdgeDriver version: $EDGE_DRIVER_VERSION" \
-&& wget -O /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip \
-&& ls -l /tmp/edgedriver.zip \
-&& unzip /tmp/edgedriver.zip -d /usr/local/bin/ \
-&& rm /tmp/edgedriver.zip
+RUN wget -q -O - https://msedgedriver.azureedge.net/LATEST_RELEASE || { echo "Failed to fetch EdgeDriver version"; exit 1; } \
+    && EDGE_DRIVER_VERSION=$(wget -q -O - https://msedgedriver.azureedge.net/LATEST_RELEASE) \
+    && echo "EdgeDriver version: $EDGE_DRIVER_VERSION" \
+    && wget -O /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_VERSION/edgedriver_linux64.zip || { echo "Failed to download EdgeDriver"; exit 1; } \
+    && ls -l /tmp/edgedriver.zip \
+    && unzip /tmp/edgedriver.zip -d /usr/local/bin/ || { echo "Failed to unzip EdgeDriver"; exit 1; } \
+    && rm /tmp/edgedriver.zip
+
 
 # Install Python dependencies
 COPY requirement.txt /app/
