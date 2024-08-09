@@ -40,6 +40,7 @@ RUN EDGE_DRIVER_VERSION=$(curl -s https://msedgedriver.azureedge.net/LATEST_RELE
 && unzip /tmp/edgedriver.zip -d /usr/local/bin/ \
 && rm /tmp/edgedriver.zip
 
+
 # Install Python dependencies
 COPY requirement.txt /app/
 RUN pip install --no-cache-dir -r requirement.txt
