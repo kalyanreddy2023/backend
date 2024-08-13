@@ -45,7 +45,7 @@ def get_data(item_code, country_codes):
     try:
         logging.info('webdriver0 exceuted')
         edge_options = Options()
-       # edge_options.add_argument("--headless")
+        edge_options.add_argument("--headless")
         print('code  debug49')
         driver = webdriver.Edge(options=edge_options)
         print('webdriver exceuted')
