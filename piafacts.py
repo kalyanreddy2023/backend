@@ -1,4 +1,5 @@
 import time
+import os
 
 from selenium import webdriver
 from selenium.common import NoSuchElementException
@@ -44,9 +45,14 @@ def get_data(item_code):
         edge_options.add_argument("--headless")
         # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=edge_options)
         driver = webdriver.Edge(options=edge_options)
-        # driver = webdriver.Chrome(service=service)
+        current_path = os.getcwd()
 
-        # Open a webpage
+        # Append the 'eddriver64' folder to the current path
+        edgedriver_path = os.path.join(current_path, 'edgedriver_win64' ,'msedgedriver.exe')
+        # Initialize the Edge WebDriver
+        #driver = webdriver.Edge(executable_path=edge_driver_path)
+        driver = webdriver.Edge(options=edge_options,executable_path=edgedriver_path)
+        # driver = webdriver.Chrome(options=edge_options)
         driver.get(url)
         driver.maximize_window()
 

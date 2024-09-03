@@ -1,4 +1,5 @@
 import time
+import os
 
 from selenium import webdriver
 from selenium.common import NoSuchElementException
@@ -43,7 +44,14 @@ def get_data(item_code, country_codes):
         edge_options.add_argument("--headless")
         # edge_options.add_argument("--disable-javascript")
         edge_options.add_argument('--disk-cache-dir=/path/to/cache')
-        driver = webdriver.Edge(options=edge_options)
+        # Get the current working directory
+        current_path = os.getcwd()
+
+        # Append the 'eddriver64' folder to the current path
+        edgedriver_path = os.path.join(current_path, 'edgedriver_win64' ,'msedgedriver.exe')
+        # Initialize the Edge WebDriver
+        #driver = webdriver.Edge(executable_path=edge_driver_path)
+        driver = webdriver.Edge(options=edge_options,executable_path=edgedriver_path)
         # driver = webdriver.Chrome(options=edge_options)
 
         # Open a webpage
