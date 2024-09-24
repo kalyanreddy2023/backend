@@ -9,20 +9,37 @@ from selenium.webdriver.edge.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.edge.service import Service
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 url = 'https://admin.range-management.ingka.com/'
+
+def login_test(wait):
+    username = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]')))
+    username.send_keys(Keys.CONTROL + 'a')
+    username.send_keys(Keys.CONTROL + 'x')
+    username.send_keys('kalyan.paralapalli@ingka.com' + '\n')
+    print('username entered')
+
+    password = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[3]/div/div[2]/input')))
+    password.send_keys(Keys.CONTROL + 'a')
+    password.send_keys(Keys.CONTROL + 'x')
+    password.send_keys('KALamma@2024' + '\n')
+    print('password entered')
 
 
 def login(wait):
     username = wait.until(EC.presence_of_element_located((By.ID, 'userNameInput')))
     username.send_keys(Keys.CONTROL + 'a')
     username.send_keys(Keys.CONTROL + 'x')
-    username.send_keys('user')
+    username.send_keys('kapar32')
+    print('username enter')
 
     password = wait.until(EC.presence_of_element_located((By.ID, 'passwordInput')))
     password.send_keys(Keys.CONTROL + 'a')
     password.send_keys(Keys.CONTROL + 'x')
-    password.send_keys('pwd' + '\n')
+    password.send_keys('KALamma@2024' + '\n')
+    print('password enter')
 
 
 def get_data(item_code, country_codes):
@@ -45,15 +62,18 @@ def get_data(item_code, country_codes):
         # edge_options.add_argument("--disable-javascript")
         edge_options.add_argument('--disk-cache-dir=/path/to/cache')
         # Get the current working directory
-        current_path = os.getcwd()
-
-        # Append the 'eddriver64' folder to the current path
-        edgedriver_path = os.path.join(current_path, 'edgedriver_win64' ,'msedgedriver.exe')
-        # Initialize the Edge WebDriver
-        #driver = webdriver.Edge(executable_path=edge_driver_path)
-        driver = webdriver.Edge(options=edge_options,executable_path=edgedriver_path)
-        # driver = webdriver.Chrome(options=edge_options)
-
+        user_agent = "user-agent=[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36]"
+        edge_options.add_argument(user_agent)
+         
+        service = Service(EdgeChromiumDriverManager().install())
+        browser = webdriver.Edge(service=service, options=edge_options)
+        
+        # Print the executable path of the Edge browserprint(service.path)  
+        driver = webdriver.Edge(options=edge_options)
+        browser.get('edge://version/')
+        element = browser.find_element(By.ID, "profile_path")
+        print('Print service path',service.path)
+        print('pathelement',element.text)       
         # Open a webpage
         driver.get(url)
         driver.maximize_window()
@@ -71,8 +91,12 @@ def get_data(item_code, country_codes):
             print('Inter Ikea button not found')
 
         # time.sleep(30)
-        #login(wait)
+        login_test(wait)
         # Privacy agreement button
+        print('ikea button click')
+        driver.implicitly_wait(5)
+        html_content = driver.page_source
+        print(html_content)
         privacy_button = wait.until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[8]/div[3]/div/div[2]/div[2]/button/span')))
         privacy_button.click()
