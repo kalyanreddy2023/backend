@@ -31,4 +31,6 @@ Flask-CORS==3.0.10
 numpy==1.21.2
 requests==2.25.1
 gunicorn==20.1.0
-openpyxl==3.0.9  # Add openpyxl for Excel file handling
+openpyxl==3.0.9  
+webdriver-manager
+# Add openpyxl for Excel file handling
